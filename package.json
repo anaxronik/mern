@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "start-server-nodemon": "nodemon app.js "
+    "server": "nodemon app.js ",
+    "client": "npm start --prefix client",
+    "server-and-client": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "mern",
