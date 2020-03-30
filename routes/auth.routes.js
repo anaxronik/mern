@@ -13,6 +13,8 @@ router.post('/register',
         check('password', 'Password short, need 6+ symbols').isLength({ min: 6 })
     ],
     async (req, res) => {
+        console.log('New request on /api/auth/register');
+        console.log('Request body: ', req.body);
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty) {
@@ -39,7 +41,8 @@ router.post('/register',
 
 
         } catch (err) {
-            res.status(500).json({ message: 'Error' })
+            console.log('Error in route /api/auth/register');
+            res.status(500).json({ message: 'Error in register router' })
         }
     })
 
