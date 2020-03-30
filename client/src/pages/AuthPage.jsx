@@ -11,7 +11,7 @@ const AuthPage = () => {
     useEffect(() => {
         message(error)
         clearError()
-    }, [error, message])
+    }, [error, message, clearError])
 
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value })
@@ -24,6 +24,19 @@ const AuthPage = () => {
         } catch (error) {
         }
     }
+
+    const loginHandler = async () => {
+        try {
+            const data = await request('/api/auth/login', 'POST', { ...form })
+            console.log(data)
+            message(data.message)
+            if (data.token && data.userId) {
+                message('Удачная попытка входа')
+            }
+        } catch (error) {
+        }
+    }
+
 
     return (
         <div className="row">
@@ -61,7 +74,11 @@ const AuthPage = () => {
 
                     </div>
                     <div className="card-action">
-                        <button className='btn yellow darken-4' style={{ marginRight: 10 }}> Войти</button>
+                        <button
+                            className='btn yellow darken-4'
+                            style={{ marginRight: 10 }}
+                            onClick={loginHandler}
+                        > Войти</button>
                         <button
                             className='btn grey lighten-1 black-text'
                             onClick={registerHandler}
