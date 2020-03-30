@@ -4,7 +4,7 @@ export const useMessage = () => {
     return useCallback(
         (text) => {
             if (window.M && text) {
-                window.M.toast({ html: text, displayLength: 10000 })
+                window.M.toast({ html: text, displayLength: 5000 })
             }
         }, [])
 }
