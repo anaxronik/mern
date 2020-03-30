@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 
 
 const AuthPage = () => {
-    const [form, setForm] = useState(
-        {
-            email: '',
-            password: '',
-        }
-    );
+    const [form, setForm] = useState({ email: '', password: '', });
 
     const changeHandler = (event) => {
-        console.log(`\nchangeHandler on ${event.target.name} = "${event.target.value}"`)
         setForm({ ...form, [event.target.name]: event.target.value })
+
+        console.log(`\nchangeHandler on ${event.target.name} = "${event.target.value}"`)
         console.log(form);
     }
 
