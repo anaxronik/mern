@@ -8,23 +8,18 @@ const config = require('config');
 
 // /api/auth/register
 router.post('/register',
-    [
-        check('email', 'Not correct email').isEmail(),
-        check('password', 'Password short, need 6+ symbols').isLength({ min: 6 })
-    ],
     async (req, res) => {
-        console.log('New request on /api/auth/register');
-        console.log('Request body: ', req.body);
+        console.log('New request on /api/auth/register', '\nRequest body: ', req.body);
         try {
-            const errors = validationResult(req)
-            if (!errors.isEmpty) {
-                return res.status(400).json({
-                    errors: errors.array,
-                    message: 'Uncorrect data for registration'
-                })
+            const { email, password } = req.body
+
+            if (email == '' || !email.includes('@') || !email.includes('.')) {
+                return res.status(400).json({ message: 'Некоректный email' })
             }
 
-            const { email, password } = req.body
+            if (password.length <= 6) {
+                return res.status(400).json({ message: 'Слишком короткий пароль' })
+            }
 
             const candidate = await User.findOne({ email })
             if (candidate) {
@@ -37,13 +32,13 @@ router.post('/register',
                 password: hashedPassword,
             })
             await user.save()
-            res.status(201).json({ message: 'user has been created' })
+            res.status(201).json({ message: `Пользователь ${user.email} успешно создан` })
             console.log('Create new user, with email: ', user.email)
 
 
         } catch (err) {
             console.log('Error in route /api/auth/register');
-            res.status(500).json({ message: 'Error in register router' })
+            res.status(500).json({ message: 'Ошибка при регистрации нового пользователя' })
         }
     })
 
