@@ -38,6 +38,7 @@ router.post('/register',
             })
             await user.save()
             res.status(201).json({ message: 'user has been created' })
+            console.log('Create new user, with email: ', user.email)
 
 
         } catch (err) {
