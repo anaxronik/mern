@@ -14,7 +14,6 @@ const CreatePage = () => {
 
     const onKeyPressHandler = async (event) => {
         if (event.key === 'Enter') {
-            // console.log('Detect press enter, send link for shorting');
             try {
                 const data = await request(
                     '/api/link/generate',
@@ -23,7 +22,6 @@ const CreatePage = () => {
                     { Authorization: `Bearer ${auth.token}` }
                 )
                 message(`Созданна короткая ссылка`)
-                console.log('Получен ответ', data);
                 history.push(`/detail/${data._id}`)
 
             } catch (error) { message('Не удалось создать ссылку') }
