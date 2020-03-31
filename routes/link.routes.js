@@ -12,8 +12,7 @@ router.post('/generate', async (req, res) => {
 
         const existing = await Link.findOne({ longLink })
         if (existing) {
-            const shortLink = existing.shortLink
-            return res.status(201).json({ longLink, shortLink, })
+            return res.status(201).json(existing)
         } else {
             const shortLink = baseUrl + '/t/' + code
             const link = await new Link({
@@ -22,7 +21,7 @@ router.post('/generate', async (req, res) => {
                 code,
             })
             await link.save()
-            return res.status(201).json({ longLink, shortLink, })
+            return res.status(201).json(link)
         }
 
     } catch (error) {
