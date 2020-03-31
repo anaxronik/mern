@@ -1,13 +1,13 @@
 const { Schema, model, Types } = require('mongoose');
-const Link = require('../models/User');
+const User = require('../models/User');
 
 const schema = new Schema({
-    from: { type: String, required: true },
-    to: { type: String, required: true, unique: true },
+    longLink: { type: String, required: true },
+    shortLink: { type: String, required: true, unique: true },
     code: { type: String, required: true, unique: true },
     date: { type: Date, default: Date.now },
     cliks: { type: Number, default: 0 },
-    owner: { type: Types.ObjectId, ref: 'User' },
+    owner: { type: String, default: '' },
 })
 
 module.exports = model('Link', schema)

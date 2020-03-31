@@ -1,38 +1,36 @@
 const { Router } = require('express')
 const Link = require('../models/Link')
 const router = Router()
-const auth = require('../midleware/auth.midleware')
 const config = require('config')
 const shortid = require('shortid')
 
 router.post('/generate', async (req, res) => {
     try {
         const baseUrl = config.get('baseUrl')
-        const { from } = req.body
-
+        const longLink = req.body.longLink
         const code = shortid.generate()
 
-        const existing = await Link.findOne({ from })
+        const shortLink = baseUrl + '/t/' + code
+        console.log('Generate short link for:', { longLink, shortLink });
 
-        if (existing) {
-            return res.json({ link: existing })
-        }
-
-        const to = baseUrl + '/t/' + code
-
-        const link = new Link({ code, to, from, owner: req.user.userId })
-
+        const link = await new Link({
+            longLink,
+            shortLink,
+            code,
+        })
         await link.save()
 
-        res.status(201).json({ link })
-
+        res.status(201).json({ longLink, shortLink, })
+        console.log('Save link in DB and response');
 
     } catch (error) {
         res.status(500).json({ message: 'что-то пошло не так, попробуйте снова' })
+        console.log('Error in generate and save link');
     }
 })
 
-router.get('/', auth, async (req, res) => {
+
+router.get('/', async (req, res) => {
     try {
         const links = await Link.find({ owner: req.user.userId })
     } catch (error) {
