@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { AuthContext } from '../context/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 
 const CreatePage = () => {
@@ -9,6 +10,7 @@ const CreatePage = () => {
     const [link, setLink] = useState('')
     const { request } = useHttp()
     const message = useMessage()
+    const history = useHistory()
 
     const onKeyPressHandler = async (event) => {
         if (event.key === 'Enter') {
@@ -21,7 +23,9 @@ const CreatePage = () => {
                     { Authorization: `Bearer ${auth.token}` }
                 )
                 message(`Созданна короткая ссылка`)
-                console.log('Получен ответ',data);
+                console.log('Получен ответ', data);
+                history.push(`/detail/${data._id}`)
+
             } catch (error) { message('Не удалось создать ссылку') }
         }
     }
