@@ -22,7 +22,9 @@ async function start() {
                 useCreateIndex: true
             }
         )
-        app.listen(PORT, () => { console.log('>>> server has been started on port ', PORT); })
+        console.log('>>> DB connected');
+
+        app.listen(PORT, () => { console.log('>>> Server started on port:', PORT); })
 
     } catch (error) {
         console.log('>>> Server error, in mongo function', error.message);
