@@ -58,6 +58,7 @@ const AuthPage = () => {
                                     name='email'
                                     onChange={changeHandler}
                                     disabled={loading}
+                                    value={form.email}
                                 />
                                 <label htmlFor="email">Your email</label>
                             </div>
@@ -69,6 +70,7 @@ const AuthPage = () => {
                                     name='password'
                                     onChange={changeHandler}
                                     disabled={loading}
+                                    value={form.password}
                                 />
                                 <label htmlFor="password">Your password</label>
                             </div>
