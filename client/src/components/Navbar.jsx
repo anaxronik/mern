@@ -15,9 +15,9 @@ export default function Navbar() {
 
     return (
         <nav>
-            <div class="nav-wrapper blue darken-1">
+            <div className="nav-wrapper blue darken-1">
                 <NavLink to="/" className='brand-logo'>Сокращение ссылок</NavLink>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><NavLink to='/create' >Создать</NavLink ></li>
                     <li><NavLink to='/links' >Ссылки</NavLink ></li>
                     <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
