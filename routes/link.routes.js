@@ -10,18 +10,20 @@ router.post('/generate', async (req, res) => {
         const longLink = req.body.longLink
         const code = shortid.generate()
 
-        const shortLink = baseUrl + '/t/' + code
-        console.log('Generate short link for:', { longLink, shortLink });
-
-        const link = await new Link({
-            longLink,
-            shortLink,
-            code,
-        })
-        await link.save()
-
-        res.status(201).json({ longLink, shortLink, })
-        console.log('Save link in DB and response');
+        const existing = await Link.findOne({ longLink })
+        if (existing) {
+            const shortLink = existing.shortLink
+            return res.status(201).json({ longLink, shortLink, })
+        } else {
+            const shortLink = baseUrl + '/t/' + code
+            const link = await new Link({
+                longLink,
+                shortLink,
+                code,
+            })
+            await link.save()
+            return res.status(201).json({ longLink, shortLink, })
+        }
 
     } catch (error) {
         res.status(500).json({ message: 'что-то пошло не так, попробуйте снова' })
