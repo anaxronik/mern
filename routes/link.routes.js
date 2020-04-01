@@ -32,8 +32,11 @@ router.post('/generate', async (req, res) => {
 
 
 router.get('/', async (req, res) => {
+    console.log('Sombody want links list')
     try {
-        const links = await Link.find({ owner: req.user.userId })
+        const links = await Link.find({ owner: '' })
+        res.json(links)
+        console.log('Links founded and sended', !!links)
     } catch (error) {
         res.status(500).json({ message: 'что-то пошло не так, попробуйте снова' })
     }
