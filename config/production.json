@@ -1,0 +1,6 @@
+{
+    "port": 5000,
+    "mongoUri": "mongodb+srv://dbuser:dbuser@cluster0-g35bl.azure.mongodb.net/app?retryWrites=true&w=majority",
+    "jwtSecret": "secretkeytextwritehere",
+    "baseUrl": "http://localhost:5000"
+}
