@@ -8,8 +8,8 @@
     "server": "nodemon app.js ",
     "client": "npm start --prefix client",
     "server-and-client": "concurrently \"npm run server\" \"npm run client\"",
-    "client:install":"npm install --prefix client",
-    "client:build":"npm run build --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client"
   },
   "keywords": [
     "mern",
@@ -20,6 +20,7 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "config": "^3.3.0",
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
